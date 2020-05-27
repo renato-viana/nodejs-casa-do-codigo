@@ -1,0 +1,23 @@
+{
+  "name": "casa-do-codigo",
+  "version": "1.0.0",
+  "description": "Livraria Casa do código",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renato-viana/nodejs-casa-do-codigo.git"
+  },
+  "author": "Renato Viana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/renato-viana/nodejs-casa-do-codigo/issues"
+  },
+  "homepage": "https://github.com/renato-viana/nodejs-casa-do-codigo#readme",
+  "dependencies": {
+    "express": "4.16.3"
+  }
+}
