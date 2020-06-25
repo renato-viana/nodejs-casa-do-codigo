@@ -16,17 +16,20 @@ module.exports = (app) => {
     });
 
     app.get('/livros', (req, resp) => {
-        resp.send(
-            `
-            <html>
-                    <head>
-                        <meta charset="utf-8">
-                    </head>
-                    <body>
-                        <h1> Listagem de Livros </h1>
-                    </body> 
-                </html>
-            `
+        resp.marko(
+            require('../views/books/list/list.marko'),
+            {
+                books: [
+                    { 
+                        id: 1,
+                        title: 'Fundamentos do Node'
+                    },
+                    { 
+                        id: 2,
+                        title: 'Node Avançado'
+                    }
+                ]
+            }
         );
     });
 };
