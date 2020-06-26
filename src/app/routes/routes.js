@@ -1,8 +1,10 @@
-module.exports = (app) => {
+const BookDao = require('../infra/book-dao');
+const db = require('../../config/database');
 
-    app.get('/', (req, resp) => {
-        resp.send(
-            `
+module.exports = (app) => {
+  app.get('/', (req, resp) => {
+    resp.send(
+      `
             <html>
                     <head>
                         <meta charset="utf-8">
@@ -12,24 +14,21 @@ module.exports = (app) => {
                     </body> 
                 </html>
             `
-        );
-    });
+    );
+  });
 
-    app.get('/livros', (req, resp) => {
+  app.get('/livros', (req, resp) => {
+    const bookDao = new BookDao(db);
+
+    bookDao
+      .list()
+      .then((books) =>
         resp.marko(
-            require('../views/books/list/list.marko'),
+            require('../views/books/list/list.marko'), 
             {
-                books: [
-                    { 
-                        id: 1,
-                        title: 'Fundamentos do Node'
-                    },
-                    { 
-                        id: 2,
-                        title: 'Node Avançado'
-                    }
-                ]
+                books
             }
-        );
-    });
+        ))
+      .catch((error) => console.log(error));
+  });
 };
