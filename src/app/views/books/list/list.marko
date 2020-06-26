@@ -5,15 +5,24 @@
     <body>
         <h1> Listagem de livros </h1>
 
-        <table>
+        <table id="livros">
             <tr>
                 <td>ID</td>
                 <td>Título</td>
+                <td>Preço</td>
+                <td>Editar</td>
+                <td>Remover</td>
             </tr>
-                <tr for(book in data.books)>
+            <tr id="livro_${book.id}" for (book in data.books)> 
                 <td>${book.id}</td>
                 <td>${book.titulo}</td>
+                <td>${book.preco}</td>
+                <td><a href="/livros/form/${book.id}">Editar</a></td> 
+                <td><a href="#" data-ref="${book.id}" data-type="remocao">Remover</a></td> 
             </tr>
         </table> 
+
+        <script src="/estatico/js/delete-book.js">
+        </script> 
     </body> 
 </html>

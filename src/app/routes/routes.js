@@ -30,7 +30,18 @@ module.exports = (app) => {
   });
 
   app.get('/livros/form', (_req, resp) => {
-    resp.marko(require('../views/books/form/form.marko'));
+    resp.marko(require('../views/books/form/form.marko'), { book: {} });
+  });
+
+  app.get('/livros/form/:id', function (req, resp) {
+    const id = req.params.id;
+
+    bookDao
+      .fetchForId(id)
+      .then((book) =>
+        resp.marko(require('../views/books/form/form.marko'), { book: book })
+      )
+      .catch((error) => console.log(error));
   });
 
   app.post('/livros', (req, resp) => {
@@ -39,6 +50,24 @@ module.exports = (app) => {
     bookDao
       .add(req.body)
       .then(resp.redirect('/livros'))
+      .catch((error) => console.log(error));
+  });
+  
+  app.put('/livros', (req, resp) => {
+    console.log(req.body);
+
+    bookDao
+      .update(req.body)
+      .then(resp.redirect('/livros'))
+      .catch((error) => console.log(error));
+  });
+
+  app.delete('/livros/:id', (req, resp) => {
+    const id = req.params.id;
+
+    bookDao
+      .delete(id)
+      .then(() => resp.status(200).end())
       .catch((error) => console.log(error));
   });
 };
